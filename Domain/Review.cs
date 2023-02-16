@@ -1,6 +1,6 @@
 namespace Domain
 {
-    public class Review : BaseEntity<Guid>
+    public class Review : BaseEntity<int>
     {
         public string Message { get; set; }
         public Book Book { get; set; }

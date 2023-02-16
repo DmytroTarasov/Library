@@ -22,7 +22,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Book", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
@@ -48,11 +48,11 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Rating", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("BookId")
+                    b.Property<int?>("BookId")
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Score")
@@ -67,11 +67,11 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Review", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("BookId")
+                    b.Property<int?>("BookId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Message")

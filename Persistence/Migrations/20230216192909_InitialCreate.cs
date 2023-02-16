@@ -15,7 +15,7 @@ namespace Persistence.Migrations
                 name: "Books",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Cover = table.Column<string>(type: "TEXT", nullable: true),
                     Content = table.Column<string>(type: "TEXT", nullable: true),
@@ -31,9 +31,9 @@ namespace Persistence.Migrations
                 name: "Ratings",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "TEXT", nullable: false),
                     Score = table.Column<decimal>(type: "TEXT", nullable: false),
-                    BookId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    BookId = table.Column<int>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -50,9 +50,9 @@ namespace Persistence.Migrations
                 name: "Reviews",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "TEXT", nullable: false),
                     Message = table.Column<string>(type: "TEXT", nullable: true),
-                    BookId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    BookId = table.Column<int>(type: "TEXT", nullable: true),
                     Reviewer = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>

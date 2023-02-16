@@ -1,6 +1,11 @@
+using Application.Books;
+using Application.Core;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Persistence;
+using Persistence.Implementations;
+using Persistence.Interfaces;
 
 namespace API
 {
@@ -30,6 +35,13 @@ namespace API
             //             .WithOrigins("http://localhost:3000");
             //     });
             // });
+
+            services.AddMediatR(typeof(List.Handler).Assembly);
+
+            services.AddAutoMapper(typeof(MappingConfiguration).Assembly);
+
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
