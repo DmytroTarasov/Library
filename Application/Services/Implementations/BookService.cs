@@ -3,6 +3,8 @@ using Application.DTOs;
 using Application.Services.Interfaces;
 using AutoMapper;
 using Domain;
+using MediatR;
+using Microsoft.Extensions.Configuration;
 using Persistence.Implementations;
 using Persistence.Interfaces;
 
@@ -12,10 +14,12 @@ namespace Application.Services.Implementations
     {
         private readonly IUnitOfWork _uof;
         private readonly IMapper _mapper;
-        public BookService(IUnitOfWork uof, IMapper mapper)
+        private readonly IConfiguration _config;
+        public BookService(IUnitOfWork uof, IMapper mapper, IConfiguration config)
         {
             _uof = uof;
             _mapper = mapper;
+            _config = config;
         }
         public async Task<Result<IEnumerable<BookDTO<int>>>> GetAllBooks(string orderBy)
         {
@@ -40,6 +44,18 @@ namespace Application.Services.Implementations
             var bookDTO = _mapper.Map<Book, BookDetailsDTO<int>>(book);
 
             return Result<BookDetailsDTO<int>>.Success(bookDTO);
+        }
+
+        public async Task<Result<Unit>> DeleteBookById(int bookId, string secretKey)
+        {
+            var book = await _uof.BookRepository.GetByIdAsync(bookId);
+            if (book == null) return Result<Unit>.Failure("The book with such id doesn't exist");
+            
+            _uof.BookRepository.Remove(book);
+            var result = await _uof.Complete();
+
+            if (!result) return Result<Unit>.Failure("Failed to create a dish");
+            return Result<Unit>.Success(Unit.Value);
         }
     }
 }

@@ -1,8 +1,8 @@
+using System.Reflection;
 using Application.Core;
 using Application.Services.Implementations;
 using Application.Services.Interfaces;
-using MediatR;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Persistence;
@@ -20,7 +20,12 @@ namespace API
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(c => {
+                    c.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+                });
+            // services.AddFluentValidationAutoValidation();
+            
             services.Configure<RouteOptions>(options => 
             { 
                 options.LowercaseUrls = true; 

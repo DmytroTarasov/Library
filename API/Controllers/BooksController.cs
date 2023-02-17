@@ -1,3 +1,5 @@
+using API.Helpers;
+using Application.DTOs;
 using Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,19 +13,24 @@ namespace API.Controllers
             _bookService = bookService;    
         }
 
-        [HttpGet("[controller]")]
-        public async Task<IActionResult> GetAllBooks([FromQuery] string order) {
-            // return HandleResult(await Mediator.Send(new List.Query { OrderBy = order }));
-            return HandleResult(await _bookService.GetAllBooks(order));
+        [HttpGet]
+        public async Task<IActionResult> GetAllBooks([FromQuery] OrderBookByParams orderBookParams) {
+            return HandleResult(await _bookService.GetAllBooks(orderBookParams.Order));
         }
 
         [HttpGet("recommended")]
         public async Task<IActionResult> GetHighRatedBooks([FromQuery] string genre) {
             return HandleResult(await _bookService.GetHighRatedBooks(genre));
         }
-        [HttpGet("[controller]/{bookId}")]
+
+        [HttpGet("/{bookId}")]
         public async Task<IActionResult> GetBookById(int bookId) {
             return HandleResult(await _bookService.GetBookByIdWithReviews(bookId));
+        }
+
+        [HttpDelete("/{bookId}")]
+        public async Task<IActionResult> DeleteBookById([FromQuery] DeleteBookParams deleteBookParams, int bookId) {
+            return HandleResult(await _bookService.DeleteBookById(bookId, deleteBookParams.SecretKey));
         }
     }
 }
