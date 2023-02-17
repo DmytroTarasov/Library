@@ -10,6 +10,7 @@ namespace Application.Services.Interfaces
         Task<Result<IEnumerable<BookDTO<int>>>> GetHighRatedBooks(string genre);
         Task<Result<BookDetailsDTO<int>>> GetBookByIdWithReviews(int bookId);
         Task<Result<Unit>> DeleteBookById(int bookId, string secretKey);
-        Task<Result<int>> SaveBook(SaveBookDTO<int> bookDTO);
+        Task<Result<EntityIdResponse>> SaveBook(SaveBookDTO<int> bookDTO);
+        Task<Result<EntityIdResponse>> SaveReviewForBook(ReviewDTO<int> reviewDTO, int bookId);
     }
 }

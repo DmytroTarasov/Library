@@ -23,19 +23,24 @@ namespace API.Controllers
             return HandleResult(await _bookService.GetHighRatedBooks(genre));
         }
 
-        [HttpGet("{bookId}")]
-        public async Task<IActionResult> GetBookById(int bookId) {
-            return HandleResult(await _bookService.GetBookByIdWithReviews(bookId));
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBookById(int id) {
+            return HandleResult(await _bookService.GetBookByIdWithReviews(id));
         }
 
-        [HttpDelete("{bookId}")]
-        public async Task<IActionResult> DeleteBookById([FromQuery] DeleteBookParams deleteBookParams, int bookId) {
-            return HandleResult(await _bookService.DeleteBookById(bookId, deleteBookParams.SecretKey));
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBookById([FromQuery] DeleteBookParams deleteBookParams, int id) {
+            return HandleResult(await _bookService.DeleteBookById(id, deleteBookParams.SecretKey));
         }
 
         [HttpPost("save")]
         public async Task<IActionResult> SaveBook([FromForm] SaveBookDTO<int> bookDTO) {
             return HandleResult(await _bookService.SaveBook(bookDTO));
+        }
+
+        [HttpPut("{id}/review")]
+        public async Task<IActionResult> SaveReviewForBook([FromBody] ReviewDTO<int> reviewDTO, int id) {
+            return HandleResult(await _bookService.SaveReviewForBook(reviewDTO, id));
         }
     }
 }

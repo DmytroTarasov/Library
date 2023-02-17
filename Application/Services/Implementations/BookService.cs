@@ -7,7 +7,6 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Persistence.Implementations;
 using Persistence.Interfaces;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Application.Services.Implementations
 {
@@ -55,11 +54,11 @@ namespace Application.Services.Implementations
             _uof.BookRepository.Remove(book);
             var result = await _uof.Complete();
 
-            if (!result) return Result<Unit>.Failure("Failed to create a dish");
+            if (!result) return Result<Unit>.Failure("Failed to delete a book");
             return Result<Unit>.Success(Unit.Value);
         }
 
-        public async Task<Result<int>> SaveBook(SaveBookDTO<int> bookDTO)
+        public async Task<Result<EntityIdResponse>> SaveBook(SaveBookDTO<int> bookDTO)
         {            
             var book = _mapper.Map<SaveBookDTO<int>, Book>(bookDTO);    
 
@@ -73,7 +72,7 @@ namespace Application.Services.Implementations
             var bookFromDb = await _uof.BookRepository.GetByIdAsync(book.Id);
 
             if (bookFromDb == null && book.Id != default(int)) {
-                return Result<int>.Failure("The book with such id doesn't exist in the db");
+                return Result<EntityIdResponse>.Failure("The book with such id doesn't exist in the db");
             }
 
             if (bookFromDb == null) {
@@ -84,8 +83,22 @@ namespace Application.Services.Implementations
 
             var result = await _uof.Complete();
 
-            if (!result) return Result<int>.Failure("Failed to save a book");
-            return Result<int>.Success(book.Id);
+            if (!result) return Result<EntityIdResponse>.Failure("Failed to save a book");
+            return Result<EntityIdResponse>.Success(new EntityIdResponse { Id = book.Id });
+        }
+        public async Task<Result<EntityIdResponse>> SaveReviewForBook(ReviewDTO<int> reviewDTO, int bookId)
+        {
+            var book = await _uof.BookRepository.GetByIdAsync(bookId);
+            var review = _mapper.Map<ReviewDTO<int>, Review>(reviewDTO);
+
+            if (book == null) {
+                return Result<EntityIdResponse>.Failure("The book with provided id doesn't exist in the db");
+            }
+
+            book.Reviews.Add(review);
+            await _uof.Complete();
+
+            return Result<EntityIdResponse>.Success(new EntityIdResponse { Id = review.Id });
         }
     }
 }
