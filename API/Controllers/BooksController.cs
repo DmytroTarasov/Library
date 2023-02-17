@@ -23,14 +23,19 @@ namespace API.Controllers
             return HandleResult(await _bookService.GetHighRatedBooks(genre));
         }
 
-        [HttpGet("/{bookId}")]
+        [HttpGet("{bookId}")]
         public async Task<IActionResult> GetBookById(int bookId) {
             return HandleResult(await _bookService.GetBookByIdWithReviews(bookId));
         }
 
-        [HttpDelete("/{bookId}")]
+        [HttpDelete("{bookId}")]
         public async Task<IActionResult> DeleteBookById([FromQuery] DeleteBookParams deleteBookParams, int bookId) {
             return HandleResult(await _bookService.DeleteBookById(bookId, deleteBookParams.SecretKey));
+        }
+
+        [HttpPost("save")]
+        public async Task<IActionResult> SaveBook([FromForm] SaveBookDTO<int> bookDTO) {
+            return HandleResult(await _bookService.SaveBook(bookDTO));
         }
     }
 }

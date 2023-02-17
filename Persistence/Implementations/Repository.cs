@@ -42,9 +42,14 @@ namespace Persistence.Implementations
             Context.Set<TEntity>().Remove(entity);
         }
 
-        public void Update(TEntity entity)
+        public void Update(TEntity oldEntity, TEntity newEntity)
         {
-            Context.Set<TEntity>().Update(entity);
+            // Context.Set<TEntity>().Update(entity);
+
+            // Context.Set<TEntity>().Attach(entity);
+            // Context.Entry(entity).State = EntityState.Modified;
+
+            Context.Set<TEntity>().Entry(oldEntity).CurrentValues.SetValues(newEntity);
         }
 
         private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> spec) {

@@ -9,7 +9,7 @@ namespace Persistence.Interfaces
         Task<TEntity> GetEntityWithSpec(ISpecification<TEntity> spec);
         Task<IEnumerable<TEntity>> ListAsync(ISpecification<TEntity> spec);
         TEntity Add(TEntity entity);
-        void Update(TEntity entity);
+        void Update(TEntity oldEntity, TEntity newEntity);
         void Remove(TEntity entity);
     }
 }
