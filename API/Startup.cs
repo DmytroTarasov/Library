@@ -1,6 +1,9 @@
 using Application.Books;
 using Application.Core;
+using Application.Services.Implementations;
+using Application.Services.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Persistence;
@@ -19,6 +22,10 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.Configure<RouteOptions>(options => 
+            { 
+                options.LowercaseUrls = true; 
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
@@ -36,12 +43,13 @@ namespace API
             //     });
             // });
 
-            services.AddMediatR(typeof(List.Handler).Assembly);
+            // services.AddMediatR(typeof(List.Handler).Assembly);
 
             services.AddAutoMapper(typeof(MappingConfiguration).Assembly);
 
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IBookService, BookService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

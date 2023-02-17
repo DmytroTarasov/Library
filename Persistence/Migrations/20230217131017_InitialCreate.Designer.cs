@@ -11,8 +11,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230216233339_ChangePrimaryKeyTypeToInt")]
-    partial class ChangePrimaryKeyTypeToInt
+    [Migration("20230217131017_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,8 +55,8 @@ namespace Persistence.Migrations
                     b.Property<int?>("BookId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Score")
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Score")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

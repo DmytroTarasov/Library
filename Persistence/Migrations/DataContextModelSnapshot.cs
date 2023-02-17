@@ -52,8 +52,8 @@ namespace Persistence.Migrations
                     b.Property<int?>("BookId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("Score")
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Score")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

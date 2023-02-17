@@ -11,22 +11,44 @@ namespace Persistence.Implementations
             Context = context;
         }
 
-        public async Task<TEntity> Get(TKey id)
+        public async Task<TEntity> GetByIdAsync(TKey id)
         {
             return await Context.Set<TEntity>().FindAsync(id);
         }
-        public async Task<IEnumerable<TEntity>> GetAll()
+
+        public async Task<TEntity> GetEntityWithSpec(ISpecification<TEntity> spec)
+        {
+            return await ApplySpecification(spec).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> ListAllAsync()
         {
             return await Context.Set<TEntity>().ToListAsync();
         }
+
+        public async Task<IEnumerable<TEntity>> ListAsync(ISpecification<TEntity> spec)
+        {
+            return await ApplySpecification(spec).ToListAsync();
+        }
+
         public TEntity Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
             return entity;
         }
+
         public void Remove(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
+        }
+
+        public void Update(TEntity entity)
+        {
+            Context.Set<TEntity>().Update(entity);
+        }
+
+        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> spec) {
+            return SpecificationEvaluator<TEntity, TKey>.GetQuery(Context.Set<TEntity>().AsQueryable(), spec);
         }
     }
 }

@@ -6,6 +6,6 @@ namespace Application.Books
         public string Title { get; set; }
         public string Author { get; set; }
         public decimal Rating { get; set; }
-        public int ReviewsNumber { get; set; }
+        public decimal ReviewsNumber { get; set; }
     }
 }
