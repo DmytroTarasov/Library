@@ -11,17 +11,19 @@ namespace API.Controllers
             _bookService = bookService;    
         }
 
-        [HttpGet]
-        [Route("[controller]")]
+        [HttpGet("[controller]")]
         public async Task<IActionResult> GetAllBooks([FromQuery] string order) {
             // return HandleResult(await Mediator.Send(new List.Query { OrderBy = order }));
             return HandleResult(await _bookService.GetAllBooks(order));
         }
 
-        [HttpGet]
-        [Route("recommended")]
+        [HttpGet("recommended")]
         public async Task<IActionResult> GetHighRatedBooks([FromQuery] string genre) {
             return HandleResult(await _bookService.GetHighRatedBooks(genre));
+        }
+        [HttpGet("[controller]/{bookId}")]
+        public async Task<IActionResult> GetBookById(int bookId) {
+            return HandleResult(await _bookService.GetBookByIdWithReviews(bookId));
         }
     }
 }

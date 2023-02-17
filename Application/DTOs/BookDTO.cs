@@ -1,4 +1,4 @@
-namespace Application.Books
+namespace Application.DTOs
 {
     public class BookDTO<TKey>
     {
