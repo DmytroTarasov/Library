@@ -19,7 +19,8 @@ namespace Application.Core
                     o => o.MapFrom(b => b.Ratings.Select(r => r.Score).DefaultIfEmpty().Average()));
             
             CreateMap<Review, ReviewDTO<int>>().ReverseMap();
-            CreateMap<SaveBookDTO<int>, Book>();
+            CreateMap<SaveBookDTO<int>, Book>(); 
+            CreateMap<RatingDTO<int>, Rating>();
         }
     }
 }

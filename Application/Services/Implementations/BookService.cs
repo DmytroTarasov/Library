@@ -100,5 +100,20 @@ namespace Application.Services.Implementations
 
             return Result<EntityIdResponse>.Success(new EntityIdResponse { Id = review.Id });
         }
+
+        public async Task<Result<EntityIdResponse>> RateBook(RatingDTO<int> ratingDTO, int bookId)
+        {
+            var book = await _uof.BookRepository.GetByIdAsync(bookId);
+            var rating = _mapper.Map<RatingDTO<int>, Rating>(ratingDTO);
+
+            if (book == null) {
+                return Result<EntityIdResponse>.Failure("The book with provided id doesn't exist in the db");
+            }
+
+            book.Ratings.Add(rating);
+            await _uof.Complete();
+
+            return Result<EntityIdResponse>.Success(new EntityIdResponse { Id = rating.Id });
+        }
     }
 }

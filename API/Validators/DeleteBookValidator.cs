@@ -11,12 +11,12 @@ namespace API.Validators
         {
             _config = config;
 
-            ClassLevelCascadeMode = CascadeMode.Stop;
+            RuleLevelCascadeMode = CascadeMode.Stop;
 
-            RuleFor(o => o.SecretKey).NotEmpty()
-                .WithMessage("Secret key is required");
-
-            RuleFor(o => o.SecretKey).Equal(_config["SecretKey"])
+            RuleFor(o => o.Secret)
+                .NotEmpty()
+                .WithMessage("Secret key is required")
+                .Equal(_config["SecretKey"])
                 .WithMessage("Please, provide a valid secret key in order to delete a book");
         }  
     }

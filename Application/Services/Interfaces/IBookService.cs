@@ -12,5 +12,6 @@ namespace Application.Services.Interfaces
         Task<Result<Unit>> DeleteBookById(int bookId, string secretKey);
         Task<Result<EntityIdResponse>> SaveBook(SaveBookDTO<int> bookDTO);
         Task<Result<EntityIdResponse>> SaveReviewForBook(ReviewDTO<int> reviewDTO, int bookId);
+        Task<Result<EntityIdResponse>> RateBook(RatingDTO<int> ratingDTO, int bookId);
     }
 }

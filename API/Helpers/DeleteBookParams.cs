@@ -2,6 +2,6 @@ namespace API.Helpers
 {
     public class DeleteBookParams
     {
-        public string SecretKey { get; set; }
+        public string Secret { get; set; }
     }
 }

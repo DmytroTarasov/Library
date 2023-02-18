@@ -33,7 +33,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Score = table.Column<double>(type: "decimal(18,2)", nullable: false),
+                    Score = table.Column<int>(type: "INTEGER", nullable: false),
                     BookId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>

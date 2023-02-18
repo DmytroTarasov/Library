@@ -8,8 +8,8 @@ namespace Persistence.Config
     {
         public void Configure(EntityTypeBuilder<Rating> builder)
         {
-            builder.Property(r => r.Score)
-                .HasColumnType("decimal(18,2)");
+            // builder.Property(r => r.Score)
+            //     .HasColumnType("decimal(18,2)");
 
             builder
                 .HasOne(r => r.Book)

@@ -30,7 +30,7 @@ namespace API.Controllers
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBookById([FromQuery] DeleteBookParams deleteBookParams, int id) {
-            return HandleResult(await _bookService.DeleteBookById(id, deleteBookParams.SecretKey));
+            return HandleResult(await _bookService.DeleteBookById(id, deleteBookParams.Secret));
         }
 
         [HttpPost("save")]
@@ -41,6 +41,11 @@ namespace API.Controllers
         [HttpPut("{id}/review")]
         public async Task<IActionResult> SaveReviewForBook([FromBody] ReviewDTO<int> reviewDTO, int id) {
             return HandleResult(await _bookService.SaveReviewForBook(reviewDTO, id));
+        }
+
+        [HttpPut("{id}/rate")]
+        public async Task<IActionResult> RateBook([FromBody] RatingDTO<int> ratingDTO, int id) {
+            return HandleResult(await _bookService.RateBook(ratingDTO, id));
         }
     }
 }
