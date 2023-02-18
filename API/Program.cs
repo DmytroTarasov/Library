@@ -5,6 +5,7 @@ using Application.Services.Implementations;
 using Application.Services.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Persistence;
@@ -17,6 +18,16 @@ builder.Services.AddControllers();
 builder.Services.Configure<RouteOptions>(options => 
 { 
     options.LowercaseUrls = true; 
+});
+builder.Services.AddHttpLogging(logging =>
+{
+    logging.LoggingFields = 
+        HttpLoggingFields.RequestPath |
+        HttpLoggingFields.RequestMethod |
+        HttpLoggingFields.RequestHeaders |
+        HttpLoggingFields.RequestQuery |
+        HttpLoggingFields.RequestBody |
+        HttpLoggingFields.ResponseStatusCode;
 });
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
@@ -40,6 +51,7 @@ builder.Services.AddCors();
 
 var app = builder.Build();
 
+app.UseHttpLogging();
 app.UseMiddleware<ExceptionMiddleware>();
 
 if (builder.Environment.IsDevelopment())

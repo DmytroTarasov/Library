@@ -46,9 +46,6 @@ namespace Persistence.Implementations
         {
             // Context.Set<TEntity>().Update(entity);
 
-            // Context.Set<TEntity>().Attach(entity);
-            // Context.Entry(entity).State = EntityState.Modified;
-
             Context.Set<TEntity>().Entry(oldEntity).CurrentValues.SetValues(newEntity);
         }
 
