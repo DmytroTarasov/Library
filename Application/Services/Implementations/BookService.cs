@@ -41,6 +41,8 @@ namespace Application.Services.Implementations
         {
             var spec = new BookByIdWithReviewsSpecification(bookId);
             var book = await _uof.BookRepository.GetEntityWithSpec(spec);
+
+            if (book == null) return Result<BookDetailsDTO<int>>.Failure("The book with such id doesn't exist");
             var bookDTO = _mapper.Map<Book, BookDetailsDTO<int>>(book);
 
             return Result<BookDetailsDTO<int>>.Success(bookDTO);
