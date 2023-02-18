@@ -10,7 +10,7 @@ namespace API.Validators
             RuleLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(r => r.Score)
-                .NotEmpty()
+                .NotNull()
                 .WithMessage("Score is required")
                 .InclusiveBetween(1, 5)
                 .WithMessage("Score must be from 1 to 5");          

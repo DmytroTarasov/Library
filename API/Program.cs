@@ -1,38 +1,76 @@
+using System.Reflection;
+using API.Middlewares;
+using Application.Core;
+using Application.Services.Implementations;
+using Application.Services.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Persistence;
+using Persistence.Implementations;
+using Persistence.Interfaces;
 
-namespace API
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();            
+builder.Services.Configure<RouteOptions>(options => 
+{ 
+    options.LowercaseUrls = true; 
+});
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+builder.Services.AddDbContext<DataContext>(opt => {
+    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+builder.Services.AddAutoMapper(typeof(MappingConfiguration).Assembly);
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IBookService, BookService>();
+
+builder.Services.AddSwaggerGen(c =>
 {
-    public class Program
-    {
-        public static async Task Main(string[] args)
-        {
-            var host = CreateHostBuilder(args).Build();
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPIv5", Version = "v1" });
+});
+builder.Services.AddCors();
 
-            using var scope = host.Services.CreateScope();
 
-            var services = scope.ServiceProvider;
+var app = builder.Build();
 
-            try
-            {
-                var context = services.GetRequiredService<DataContext>();
-                await context.Database.MigrateAsync();
-                await Seed.SeedData(context);
-            }
-            catch (Exception ex)
-            {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occured during migration");
-            }
+app.UseMiddleware<ExceptionMiddleware>();
 
-            await host.RunAsync();
-        }
+if (builder.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPIv5 v1"));
+}
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+app.UseHttpsRedirection();
+
+app.UseCors(x => x
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .WithOrigins("https://localhost:4200"));
+
+app.UseRouting();
+app.UseStaticFiles(); 
+
+app.MapControllers();
+
+using (var scope = app.Services.CreateScope()) {
+    var services = scope.ServiceProvider;
+    try {
+        var context = services.GetRequiredService<DataContext>();
+        await context.Database.MigrateAsync();
+        await Seed.SeedData(context);
+    } catch (Exception ex) {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occured during migration");
     }
 }
+
+await app.RunAsync();
