@@ -10,16 +10,16 @@ namespace Persistence
             {
                 var books = new List<Book>
                 {
-                    new Book { Title = "Dracula", Content = "Content", Genre = "horror", Author = "Bram Stoker", Cover = "Cover" },
-                    new Book { Title = "Frankenstein", Content = "Content", Genre = "horror", Author = "Mary Shelley", Cover = "Cover" },
-                    new Book { Title = "The Shining", Content = "Content", Genre = "horror", Author = "Stephen King", Cover = "Cover" },
-                    new Book { Title = "Harry Potter and the Philosopher's Stone", Content = "Content", Genre = "fiction", Author = "Rowling, J.K.", Cover = "Cover" },
-                    new Book { Title = "Harry Potter and the Deathly Hallows", Content = "Content", Genre = "fiction", Author = "Rowling, J.K.", Cover = "Cover" },
-                    new Book { Title = "Harry Potter and the Order of the Phoenix", Content = "Content", Genre = "fiction", Author = "Rowling, J.K.", Cover = "Cover" },
-                    new Book { Title = "The Haunting of Hill House", Content = "Content", Genre = "horror", Author = "Shirley Jackson", Cover = "Cover" },
-                    new Book { Title = "House of Leaves", Content = "Content", Genre = "horror", Author = "Mark Z. Danielewski", Cover = "Cover" },
-                    new Book { Title = "Carrie", Content = "Content", Genre = "horror", Author = "Stephen King", Cover = "Cover" },
-                    new Book { Title = "Ghost Story", Content = "Content", Genre = "horror", Author = "Peter Straub", Cover = "Cover" }
+                    new Book { Title = "Dracula", Content = "Content", Genre = "horror", Author = "Bram Stoker" },
+                    new Book { Title = "Frankenstein", Content = "Content", Genre = "horror", Author = "Mary Shelley" },
+                    new Book { Title = "The Shining", Content = "Content", Genre = "horror", Author = "Stephen King" },
+                    new Book { Title = "Harry Potter and the Philosopher's Stone", Content = "Content", Genre = "fiction", Author = "Rowling, J.K." },
+                    new Book { Title = "Harry Potter and the Deathly Hallows", Content = "Content", Genre = "fiction", Author = "Rowling, J.K." },
+                    new Book { Title = "Harry Potter and the Order of the Phoenix", Content = "Content", Genre = "fiction", Author = "Rowling, J.K." },
+                    new Book { Title = "The Haunting of Hill House", Content = "Content", Genre = "horror", Author = "Shirley Jackson" },
+                    new Book { Title = "House of Leaves", Content = "Content", Genre = "horror", Author = "Mark Z. Danielewski" },
+                    new Book { Title = "Carrie", Content = "Content", Genre = "horror", Author = "Stephen King" },
+                    new Book { Title = "Ghost Story", Content = "Content", Genre = "horror", Author = "Peter Straub" }
                 };
 
                 var reviews = new List<Review>

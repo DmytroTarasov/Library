@@ -1,6 +1,6 @@
 <div class="row book-item" *ngIf="book">
   <div class="col-3 d-flex justify-content-center align-items-center h-100">
-    <img class="book-cover" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="cover">
+    <img class="book-cover" src="{{book.cover || 'https://placehold.co/100x70'}}" alt="cover">
   </div>
   <div class="col-9 p-2 position-relative">
     <h5>{{book.title | truncate }}</h5>
