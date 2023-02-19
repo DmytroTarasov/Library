@@ -1,5 +1,5 @@
-export interface Book {
-  _id?: number;
+export interface IBook {
+  id: number;
   title: string;
   reviewsNumber: number;
   rating: number;

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Book } from 'src/app/_models/book.model';
+import { IBook } from 'src/app/_models/book.model';
 import { BooksService } from 'src/app/_services/books.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { BooksService } from 'src/app/_services/books.service';
 export class BookListComponent implements OnInit {
   @Input('recommended') recommended: boolean;
 
-  books$: Observable<Book[]>;
+  books$: Observable<IBook[]>;
 
   constructor(private booksService: BooksService) { }
 

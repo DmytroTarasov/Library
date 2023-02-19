@@ -1,0 +1,38 @@
+<div *ngIf="(book$ | async) as book">
+  <div class="modal-header">
+    <h5 class="modal-title pull-center">Details</h5>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="closeModalDialog()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-2">
+    <div class="row justify-content-between book-main-info">
+      <div class="col-5 p-3">
+        <img class="book-cover" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="cover">
+        <div class="row mt-2">
+          <div class="col-6">
+            <span>Rating: {{book.rating | number: '1.1-1'}}</span>
+          </div>
+          <div class="col-6">
+            <span>Reviews: {{book.reviews | length}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-7 p-3 mh-100">
+        <h5 class="mb-1">{{book.title}}</h5>
+        <p>{{book.author}}, {{book.genre}}</p>
+        <div class="h-75 overflow-auto">
+          <p>{{book.content}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="book-reviews overflow-auto p-3 pe-0 me-3">
+      <div class="border-top" *ngFor="let review of book.reviews">
+        <h6 class="mt-2">{{review.reviewer}}</h6>
+        <p class="mb-2">{{review.message}}</p>
+      </div>
+    </div>
+  </div>
+
+</div>

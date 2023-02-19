@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Book } from 'src/app/_models/book.model';
+import { Component, Input, TemplateRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { IBook } from 'src/app/_models/book.model';
 
 @Component({
   selector: 'app-book-list-item',
@@ -7,5 +8,16 @@ import { Book } from 'src/app/_models/book.model';
   styleUrls: ['./book-list-item.component.css']
 })
 export class BookListItemComponent {
-  @Input('book') book: Book;
+  @Input() book: IBook;
+  modalRef?: BsModalRef;
+
+  constructor(private modalService: BsModalService) {}
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  closeModal() {
+    this.modalRef?.hide();
+  }
 }

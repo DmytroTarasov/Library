@@ -10,21 +10,27 @@ import { BookListItemComponent } from './books/book-list-item/book-list-item.com
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TruncatePipe } from './_pipes/truncate.pipe';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { faEdit, faEye } from '@fortawesome/free-regular-svg-icons';
+import { ViewBookComponent } from './books/view-book/view-book.component';
+import { LengthPipe } from './_pipes/length.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookListComponent,
     BookListItemComponent,
-    TruncatePipe
+    TruncatePipe,
+    ViewBookComponent,
+    LengthPipe
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     TabsModule.forRoot(),
+    ModalModule.forRoot(),
     FontAwesomeModule
   ],
   providers: [],
