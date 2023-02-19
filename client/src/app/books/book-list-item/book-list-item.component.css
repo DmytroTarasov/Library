@@ -1,0 +1,9 @@
+.book-item {
+  height: 70px;
+}
+
+.book-cover {
+  width: 80%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,20 @@
+<div class="row book-item" *ngIf="book">
+  <div class="col-3 d-flex justify-content-center align-items-center h-100">
+    <img class="book-cover" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="cover">
+  </div>
+  <div class="col-9 p-2 position-relative">
+    <h5>{{book.title | truncate }}</h5>
+    <div class="row">
+      <div class="col-5">
+        <span>Review: {{book.reviewsNumber}}</span>
+      </div>
+      <div class="col-5">
+        <span>Rating: {{book.rating | number: '1.1-1'}}</span>
+      </div>
+    </div>
+    <div class="btn-group position-absolute end-0 top-0" role="group">
+      <button class="btn p-2"><fa-icon [icon]="['far', 'eye']"></fa-icon></button>
+      <button class="btn p-2"><fa-icon [icon]="['far', 'edit']"></fa-icon></button>
+    </div>
+  </div>
+</div>
