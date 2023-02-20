@@ -1,0 +1,14 @@
+<div class="row align-items-center mb-3">
+  <div class="col-2">
+    <label for="book-cover" class="form-label m-0 me-3">Cover</label>
+  </div>
+
+  <div class="col-10">
+    <input class="form-control" id="book-cover" type="file" accept=".jpg,.png,.jpeg"
+      [formControl]="ngControl.control"/>
+  </div>
+
+  <div class="cover-upload-preview mt-3" *ngIf="previewUrl && ngControl.control.value">
+    <img class="w-100 h-100" [src]="previewUrl" alt="preview">
+  </div>
+</div>

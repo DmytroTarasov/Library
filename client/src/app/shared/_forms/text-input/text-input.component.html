@@ -1,0 +1,30 @@
+<div class="row align-items-center {{classes}}">
+
+  <div class="col-2">
+    <label for="{{label}}" class="form-label m-0 me-3">{{label}}</label>
+  </div>
+
+  <div class="col-10">
+    <input
+      [class.is-invalid]="ngControl.control.touched && ngControl.control.invalid"
+      type={{type}}
+      class="form-control"
+      [formControl]="ngControl.control"
+      id="{{label}}">
+
+    <div
+      class="text-danger"
+      *ngIf="ngControl.control.errors?.required && ngControl.control.touched">
+      Please enter a {{label}}
+    </div>
+
+    <div
+      class="text-danger"
+      *ngIf="ngControl.control.errors?.pattern && ngControl.control.touched">
+      Please provide a valid {{label}}
+    </div>
+  </div>
+
+</div>
+
+

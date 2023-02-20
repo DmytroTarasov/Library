@@ -34,7 +34,7 @@ namespace API.Controllers
         }
 
         [HttpPost("save")]
-        public async Task<IActionResult> SaveBook([FromForm] SaveBookDTO<int> bookDTO) {
+        public async Task<IActionResult> SaveBook([FromBody] SaveBookDTO<int> bookDTO) {
             return HandleResult(await _bookService.SaveBook(bookDTO));
         }
 

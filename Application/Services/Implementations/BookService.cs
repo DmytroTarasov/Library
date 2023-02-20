@@ -63,13 +63,6 @@ namespace Application.Services.Implementations
         public async Task<Result<EntityIdResponse>> SaveBook(SaveBookDTO<int> bookDTO)
         {            
             var book = _mapper.Map<SaveBookDTO<int>, Book>(bookDTO);    
-
-            using(var ms = new MemoryStream()) {
-                bookDTO.Cover.CopyTo(ms);
-                var fileBytes = ms.ToArray();
-                var base64String = Convert.ToBase64String(fileBytes);
-                book.Cover = "data:image/jpeg;base64," + base64String;
-            }
             
             var bookFromDb = await _uof.BookRepository.GetByIdAsync(book.Id);
 

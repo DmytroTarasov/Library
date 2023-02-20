@@ -1,0 +1,8 @@
+.cover-upload-preview {
+  height: 70px;
+  width: 100px;
+}
+
+.cover-upload-preview img {
+  object-fit: cover;
+}

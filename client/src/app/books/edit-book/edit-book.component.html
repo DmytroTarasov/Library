@@ -1,0 +1,29 @@
+<div class="w-100 my-4">
+  <h4>Add book</h4>
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" class="border-top p-3">
+
+    <div class="row justify-content-between">
+      <div class="col-5">
+
+        <app-text-input [formControl]='bookForm.controls["title"]' [label]='"Title"'></app-text-input>
+        <app-file-upload [formControl]='bookForm.controls["cover"]' (bookCoverSelected)="setBookCover($event)"></app-file-upload>
+        <app-text-input [formControl]='bookForm.controls["genre"]' [label]='"Genre"'></app-text-input>
+        <app-text-input [classes]="'mb-0'" [formControl]='bookForm.controls["author"]' [label]='"Author"'></app-text-input>
+
+        <!-- <p class="text-danger" *ngIf="(authError$ | async) as error">{{ error }}</p>
+        <p class="text-success" *ngIf="(authMessage$ | async) as message">{{ message }}</p> -->
+      </div>
+
+      <div class="col-5">
+        <app-textarea [formControl]='bookForm.controls["content"]' [label]='"Content"'></app-textarea>
+      </div>
+
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+      <button type="submit" class="btn btn-info btn-form" [disabled]="!bookForm.valid">Add</button>
+      <button type="button" class="btn btn-warning btn-form ms-3" (click)="clearForm()">Clear</button>
+    </div>
+
+  </form>
+</div>
