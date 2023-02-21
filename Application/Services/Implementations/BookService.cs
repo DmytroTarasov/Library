@@ -60,9 +60,9 @@ namespace Application.Services.Implementations
             return Result<Unit>.Success(Unit.Value);
         }
 
-        public async Task<Result<EntityIdResponse>> SaveBook(SaveBookDTO<int> bookDTO)
+        public async Task<Result<EntityIdResponse>> SaveBook(BaseBookDTO<int> bookDTO)
         {            
-            var book = _mapper.Map<SaveBookDTO<int>, Book>(bookDTO);    
+            var book = _mapper.Map<BaseBookDTO<int>, Book>(bookDTO);    
             
             var bookFromDb = await _uof.BookRepository.GetByIdAsync(book.Id);
 

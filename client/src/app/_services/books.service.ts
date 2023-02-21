@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { IBaseBook } from '../_models/base-book.model';
 import { IBookDetails } from '../_models/book-details.model';
 import { IBook } from '../_models/book.model';
-import { ISaveBook } from '../_models/save-book.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,9 @@ import { ISaveBook } from '../_models/save-book.model';
 export class BooksService {
   private booksChangeSource = new BehaviorSubject<boolean>(false);
   booksChange$ = this.booksChangeSource.asObservable();
+
+  private bookToEditSource = new BehaviorSubject<IBaseBook>(null);
+  bookToEdit$ = this.bookToEditSource.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -39,7 +42,7 @@ export class BooksService {
     return this.http.get<IBookDetails>(`${environment.serverUrl}/books/${bookId}`);
   }
 
-  addBook(book: ISaveBook) {
+  saveBook(book: IBaseBook) {
     return this.http
       .post<number>(`${environment.serverUrl}/books/save`, book)
       .pipe(
@@ -47,5 +50,9 @@ export class BooksService {
           this.booksChangeSource.next(true);
         })
       );
+  }
+
+  setBookToEdit(book: IBaseBook) {
+    this.bookToEditSource.next(book);
   }
 }

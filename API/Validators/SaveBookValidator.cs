@@ -3,15 +3,12 @@ using FluentValidation;
 
 namespace API.Validators
 {
-    public class SaveBookValidator : AbstractValidator<SaveBookDTO<int>>
+    public class SaveBookValidator : AbstractValidator<BaseBookDTO<int>>
     {
         public SaveBookValidator()
         {
             RuleFor(b => b.Title).NotEmpty()
                 .WithMessage("Title is required");   
-
-            RuleFor(b => b.Cover).NotEmpty()
-                .WithMessage("Cover is required");  
 
             RuleFor(b => b.Content).NotEmpty()
                 .WithMessage("Content is required");   

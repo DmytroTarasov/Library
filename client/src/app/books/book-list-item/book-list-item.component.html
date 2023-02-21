@@ -16,7 +16,7 @@
       <button class="btn p-2" (click)="openModal(template)">
         <fa-icon [icon]="['far', 'eye']"></fa-icon>
       </button>
-      <button class="btn p-2"><fa-icon [icon]="['far', 'edit']"></fa-icon></button>
+      <button class="btn p-2"><fa-icon [icon]="['far', 'edit']" (click)="setBookToEdit(book)"></fa-icon></button>
     </div>
   </div>
 </div>

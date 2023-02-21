@@ -1,4 +1,4 @@
-export interface ISaveBook {
+export interface IBaseBook {
   id?: number;
   title: string;
   cover: string;

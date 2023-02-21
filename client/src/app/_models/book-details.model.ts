@@ -1,12 +1,7 @@
+import { IBaseBook } from "./base-book.model";
 import { IReview } from "./review.model";
 
-export interface IBookDetails {
-  id: number;
-  title: string;
-  cover: string;
-  content: string;
-  author: string;
-  genre: string;
+export interface IBookDetails extends IBaseBook {
   rating: number;
   reviews: IReview[];
 }

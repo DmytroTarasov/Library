@@ -1,17 +1,10 @@
-import { Component, ElementRef, EventEmitter, HostListener, Output, Self } from '@angular/core';
-import { ControlValueAccessor, NgControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, EventEmitter, HostListener, Input, Output, Self } from '@angular/core';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.css'],
-  // providers: [
-  //   {
-  //     provide: NG_VALUE_ACCESSOR,
-  //     useExisting: FileUploadComponent,
-  //     multi: true
-  //   }
-  // ]
+  styleUrls: ['./file-upload.component.css']
 })
 export class FileUploadComponent implements ControlValueAccessor {
   onChange: Function;
